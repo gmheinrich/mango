@@ -116,12 +116,13 @@ export const Range: React.FC<Props> = ({ rangeType, ...props }) => {
         <div className='relative w-[12%] mr-4'>
           <input 
             id="minValue" 
-            name="minValue" 
+            name="minValueInput" 
             type="number" 
             value={minValue} 
             onChange={handleOnChangeMinValue} 
             disabled={isRange.current}
             className='peer w-full text-center focus:outline-2 focus:outline-black disabled:bg-inherit'
+            aria-label="Valor minimo"
           />
           <span className='absolute w-4 right-3'>€</span>
         </div>
@@ -147,12 +148,13 @@ export const Range: React.FC<Props> = ({ rangeType, ...props }) => {
         <div className='relative w-[12%] ml-4'>
           <input 
             id="maxValue" 
-            name="maxValue" 
+            name="maxValueInput" 
             type="number" 
             value={maxValue} 
             onChange={handleOnChangeMaxValue} 
             disabled={isRange.current}
             className="peer w-full text-center focus:outline-2 focus:outline-black disabled:bg-inherit"
+            aria-label="Valor maximo"
           />
           <span className='absolute w-4 right-3'>€</span>
         </div>
