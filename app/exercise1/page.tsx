@@ -1,4 +1,4 @@
-import { Range } from "../components/range"
+import { Range } from "../components/range/range"
 import { getDataExercise1 } from "../lib/data";
 
 export default async function Page() {

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect, ChangeEvent } from 'react';
+import { ExtremeField } from './extreme';
 
 interface RangeProps {
   range: number[];
@@ -44,7 +45,7 @@ export const Range: React.FC<Props> = ({ rangeType, ...props }) => {
     return range[newValueIndex]
   }
 
-  const handleMinDrag = (e: MouseEvent) => {
+  const handleMinDrag = (e: MouseEvent): void => {
     e.preventDefault()
     if (lineRef.current) {
       if (isRange.current) {
@@ -59,7 +60,7 @@ export const Range: React.FC<Props> = ({ rangeType, ...props }) => {
     };
   };
 
-  const handleMaxDrag = (e: MouseEvent) => {
+  const handleMaxDrag = (e: MouseEvent): void => {
     e.preventDefault()
     if (lineRef.current) {
       if (isRange.current) {
@@ -74,17 +75,17 @@ export const Range: React.FC<Props> = ({ rangeType, ...props }) => {
     };
   };
 
-  const handleMouseDownMin = () => {
+  const handleMouseDownMin = (): void => {
     document.addEventListener('mousemove', handleMinDrag);
     document.addEventListener('mouseup', handleMouseUp);
   };
 
-  const handleMouseDownMax = () => {
+  const handleMouseDownMax = (): void => {
     document.addEventListener('mousemove', handleMaxDrag);
     document.addEventListener('mouseup', handleMouseUp);
   };
 
-  const handleMouseUp = () => {
+  const handleMouseUp = (): void => {
     document.removeEventListener('mousemove', handleMinDrag);
     document.removeEventListener('mousemove', handleMaxDrag);
     document.removeEventListener('mouseup', handleMouseUp);
@@ -94,7 +95,7 @@ export const Range: React.FC<Props> = ({ rangeType, ...props }) => {
   const MaxDragLeftPosition = isRange.current ? ((maxValue - range[0]) / (range[range.length - 1] - range[0])) * 100 : ((maxValue - initialMin) / (initialMax - initialMin)) * 100;
   const SelectedRangeWidth = isRange.current ? ((maxValue - minValue) / (range[range.length - 1] - range[0])) * 100 : ((maxValue - minValue) / (initialMax - initialMin)) * 100;
   
-  const handleOnChangeMinValue = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleOnChangeMinValue = (e: ChangeEvent<HTMLInputElement>): void => {
     const newValue = parseInt(e.target.value);
     if (newValue >= 1 && newValue <= initialMax) {
       setInitialMin(newValue);
@@ -102,7 +103,7 @@ export const Range: React.FC<Props> = ({ rangeType, ...props }) => {
     }
   }; 
 
-  const handleOnChangeMaxValue = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleOnChangeMaxValue = (e: ChangeEvent<HTMLInputElement>): void => {
     const newValue = parseInt(e.target.value);
     if (newValue >= initialMin) {
       setInitialMax(newValue);
@@ -114,17 +115,7 @@ export const Range: React.FC<Props> = ({ rangeType, ...props }) => {
     <div className="flex items-center justify-center w-full">
       <div className="flex items-center justify-between w-full">
         <div className='relative w-[12%] mr-4'>
-          <input 
-            id="minValue" 
-            name="minValueInput" 
-            type="number" 
-            value={minValue} 
-            onChange={handleOnChangeMinValue} 
-            disabled={isRange.current}
-            className='peer w-full text-center focus:outline-2 focus:outline-black disabled:bg-inherit'
-            aria-label="Valor minimo"
-          />
-          <span className='absolute w-4 right-3'>€</span>
+          <ExtremeField value={minValue} disabled={isRange.current} onChange={handleOnChangeMinValue} aria-label="Valor minimo"/>
         </div>
         <div ref={lineRef} className="relative w-[76%] h-2 bg-gray-300 rounded-full">
           <div
@@ -146,17 +137,7 @@ export const Range: React.FC<Props> = ({ rangeType, ...props }) => {
           ></div>
         </div>
         <div className='relative w-[12%] ml-4'>
-          <input 
-            id="maxValue" 
-            name="maxValueInput" 
-            type="number" 
-            value={maxValue} 
-            onChange={handleOnChangeMaxValue} 
-            disabled={isRange.current}
-            className="peer w-full text-center focus:outline-2 focus:outline-black disabled:bg-inherit"
-            aria-label="Valor maximo"
-          />
-          <span className='absolute w-4 right-3'>€</span>
+          <ExtremeField value={maxValue} disabled={isRange.current} onChange={handleOnChangeMaxValue} aria-label="Valor maximo"/>
         </div>
       </div>
     </div>
