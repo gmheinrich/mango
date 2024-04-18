@@ -47,6 +47,7 @@ export const Range: React.FC<Props> = ({ rangeType, ...props }) => {
 
   const handleMinDrag = (e: MouseEvent): void => {
     e.preventDefault()
+    console.log(e.clientX)
     if (lineRef.current) {
       if (isRange.current) {
         const newValue = calcNewValue(e)
@@ -122,11 +123,13 @@ export const Range: React.FC<Props> = ({ rangeType, ...props }) => {
             className="absolute top-1/2 w-4 h-4 active:w-5 active:h-5 bg-black rounded-full shadow-md flex items-center justify-center cursor-grab"
             style={{ left: `${MinDragLeftPosition}%`, transform: 'translate(-50%, -50%)' }}
             onMouseDown={handleMouseDownMin}
+            data-testid="min-handle"
           ></div>
           <div
             className="absolute top-1/2 w-4 h-4 active:w-5 active:h-5 bg-black rounded-full shadow-md flex items-center justify-center cursor-grab"
             style={{ left: `${MaxDragLeftPosition}%`, transform: 'translate(-50%, -50%)' }}
             onMouseDown={handleMouseDownMax}
+            data-testid="max-handle"
           ></div>
           <div
             className="absolute top-0 bg-black h-2 rounded-full"
